@@ -16,8 +16,8 @@ class ViewController: UIViewController {
     var audioFile: AVAudioFile!
     var audioPlayerNode: AVAudioPlayerNode!
     var audioUnitTimePitch: AVAudioUnitTimePitch!
-    
 
+    
     //MARK Outlet
     
     
@@ -67,7 +67,6 @@ class ViewController: UIViewController {
         setUpAudioRecorder()
     }
 
-
     // 音声出力の初期設定
     func setUpAudioRecorder() {
         let session = AVAudioSession.sharedInstance()
@@ -77,7 +76,7 @@ class ViewController: UIViewController {
             try session.setCategory(
                 .playAndRecord,
                 mode: .default,
-                options: [.defaultToSpeaker,      // 録音レベルを大きくする
+                options: [.defaultToSpeaker,      // レシーバーからスピーカーへ移行
                           .allowAirPlay,          // AirPlayデバイスにストリーミングできる
                           .allowBluetoothA2DP])   // Bluetoothイヤホンでも録音再生ができる
             
@@ -122,12 +121,12 @@ class ViewController: UIViewController {
             
             // ノードを生成エンジンにアタッチ
             let oneNode = AVAudioUnitDistortion()
-            oneNode.loadFactoryPreset(.multiBrokenSpeaker)
+            oneNode.loadFactoryPreset(.speechGoldenPi)
             audioEngine.attach(oneNode)
             
             // ノードを生成エンジンにアタッチ
             let twoNode = AVAudioUnitDistortion()
-            twoNode.loadFactoryPreset(.speechAlienChatter)
+            twoNode.loadFactoryPreset(.speechWaves)
             audioEngine.attach(twoNode)
             
             // 条件分岐
@@ -137,6 +136,8 @@ class ViewController: UIViewController {
                 connectAudioNodes(audioPlayerNode, oneNode, audioEngine.outputNode)
             } else if two {
                 connectAudioNodes(audioPlayerNode, twoNode, audioEngine.outputNode)
+            } else {
+                connectAudioNodes(audioPlayerNode, audioEngine.outputNode)
             }
             
             
