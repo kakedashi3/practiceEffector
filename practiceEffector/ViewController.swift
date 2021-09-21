@@ -18,7 +18,7 @@ class ViewController: UIViewController {
     var audioUnitTimePitch: AVAudioUnitTimePitch!
 
     
-    //MARK Outlet
+    //MARK: Outlet
     
     
     @IBOutlet weak var distortionOne: UISwitch!{
@@ -167,7 +167,7 @@ class ViewController: UIViewController {
         return audioUrl
     }
     
-    // MARK Action
+    // MARK: Action
     
     
     @IBAction func record(_ sender: Any) {
